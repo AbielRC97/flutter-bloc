@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:blocs_app/presentation/bloc/blocs.dart';
 
 void main() {
+  iniatialized();
   runApp(const BlocsProviders());
 }
 
@@ -16,16 +17,16 @@ class BlocsProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => UsernameCubit(),
+          create: (context) => getIt<UsernameCubit>(),
         ),
         BlocProvider(
-          create: (context) => AppRouterCubit(),
+          create: (context) => getIt<AppRouterCubit>(),
         ),
         BlocProvider(
-          create: (context) => CounterCubit(),
+          create: (context) => getIt<CounterCubit>(),
         ),
         BlocProvider(
-          create: (context) => ThemeCubit(),
+          create: (context) => getIt<ThemeCubit>(),
         ),
       ],
       child: const MyApp(),
