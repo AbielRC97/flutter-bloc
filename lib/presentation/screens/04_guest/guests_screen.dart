@@ -1,3 +1,5 @@
+import 'package:blocs_app/config/config.dart';
+import 'package:blocs_app/domain/entities/todo.dart';
 import 'package:blocs_app/presentation/bloc/blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +16,12 @@ class GuestsScreen extends StatelessWidget {
       body: const _TodoView(),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          context.read<GuestsBloc>().addNewGuest(Todo(
+              id: uuid.v4(),
+              description: RandomGenerator.getRandomName(),
+              completedAt: null));
+        },
       ),
     );
   }
@@ -43,7 +50,7 @@ class _TodoView extends StatelessWidget {
           ],
           selected: <GuestFilter>{guestsbloc.state.filter},
           onSelectionChanged: (value) {
-            guestsbloc.changeFilter(newFilter: value.first);
+            guestsbloc.changeCustomFilter(newFilter: value.first);
           },
         ),
         const SizedBox(height: 5),
@@ -51,11 +58,15 @@ class _TodoView extends StatelessWidget {
         /// Listado de personas a invitar
         Expanded(
           child: ListView.builder(
+            itemCount: guestsbloc.state.hoyManyGuests,
             itemBuilder: (context, index) {
+              final guest = guestsbloc.state.filterGuests[index];
               return SwitchListTile(
-                  title: const Text('Juan carlos'),
-                  value: true,
-                  onChanged: (value) {});
+                  title: Text(guest.description),
+                  value: guest.done,
+                  onChanged: (value) {
+                    guestsbloc.setToggle(guest.id);
+                  });
             },
           ),
         )
