@@ -5,5 +5,6 @@ export 'geolocation_cubit/geolocation_cubit.dart';
 
 export 'guests_bloc/guests_bloc.dart';
 export 'pokemon_bloc/pokemon_bloc.dart';
+export 'history_bloc/history_bloc.dart';
 
 export './service_locator.dart';

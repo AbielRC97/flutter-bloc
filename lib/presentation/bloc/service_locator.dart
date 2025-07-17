@@ -9,7 +9,11 @@ void iniatialized() {
   getIt.registerSingleton(AppRouterCubit());
   getIt.registerSingleton(CounterCubit());
   getIt.registerSingleton(ThemeCubit());
-  getIt.registerSingleton(GeolocationCubit()..watchUserLocation());
+
+  getIt.registerSingleton(HistoryBloc());
+  getIt.registerSingleton(GeolocationCubit(
+      onNewLocationCallback: getIt<HistoryBloc>().onNewLocation)
+    ..watchUserLocation());
 
   getIt.registerSingleton(GuestsBloc());
   getIt.registerSingleton(PokemonBloc());
